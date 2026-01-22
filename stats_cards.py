@@ -52,28 +52,28 @@ def github_stats(user, repo, token=None):
 
 
 def generate_banner_svg():
-    console = Console(width=1200, record=True, force_terminal=True)
-    console.print(banner())
+    console = Console(width=80, record=True, force_terminal=True)
+    console.print("\n")
+    console.print(banner(), justify="center")
     svg = console.export_svg()
-    svg = svg.replace('width="', 'width="').replace('height="', 'height="')
-    svg = svg.replace('<svg ', '<svg style="width:100%; max-width:800px; height:auto;" ')
+    svg = svg.replace('<svg ', '<svg style="width:100%; max-width:500px; height:auto; display: block; margin: auto;" ')
     return svg
 
 
 def generate_stats_svg(stats):
-    console = Console(width=1200, record=True, force_terminal=True)
+    console = Console(width=80, record=True, force_terminal=True)
     
-    table = Table(title="[bold green]Saucegeo's Stats[/bold green]", show_header=True, header_style="bold magenta")
-    table.add_column("Stat", style="cyan", no_wrap=True)
-    table.add_column("Count", style="yellow")
+    table = Table(title="[bold green]Saucegeo's Stats[/bold green]", show_header=True, header_style="bold magenta", expand=False)
+    table.add_column("Stat", style="cyan", no_wrap=True, justify="left")
+    table.add_column("Count", style="yellow", justify="right")
     
     for k, v in stats.items():
         table.add_row(k, str(v))
     
-    console.print(table)
+    console.print("\n")
+    console.print(table, justify="center")
     svg = console.export_svg()
-    svg = svg.replace('width="', 'width="').replace('height="', 'height="')
-    svg = svg.replace('<svg ', '<svg style="width:100%; max-width:800px; height:auto;" ')
+    svg = svg.replace('<svg ', '<svg style="width:100%; max-width:400px; height:auto; display: block; margin: auto;" ')
     return svg
 
 
@@ -107,5 +107,5 @@ if __name__ == "__main__":
     with open("assets/stats.svg", "w") as f:
         f.write(stats_svg)
     
-    print("\n✅ Generated assets/banner.svg")
-    print("✅ Generated assets/stats.svg")
+    print("\n Generated assets/banner.svg")
+    print("Generated assets/stats.svg")

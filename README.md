@@ -13,12 +13,6 @@
   <img src="./assets/stats.svg" alt="GitHub Stats" />
 </p>
 
-<picture decoding="async" loading="lazy">
-  <source media="(prefers-color-scheme: light)" srcset="https://pixel-profile.vercel.app/api/github-stats?username=saucegeo&theme=summer">
-  <source media="(prefers-color-scheme: dark)" srcset="https://pixel-profile.vercel.app/api/github-stats?username=saucegeo&screen_effect=true&theme=rainbow">
-  <img alt="github stats" src="https://pixel-profile.vercel.app/api/github-stats?username=saucegeo&theme=summer">
-</picture>
-
 ## Tech Stack
 
 ```text

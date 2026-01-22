@@ -3,6 +3,7 @@ from rich import print
 from rich.console import Console
 from rich.table import Table
 from rich.text import Text
+from rich.align import Align
 import requests
 
 def banner():
@@ -52,28 +53,32 @@ def github_stats(user, repo, token=None):
 
 
 def generate_banner_svg():
-    console = Console(width=80, record=True, force_terminal=True)
-    console.print("\n")
-    console.print(banner(), justify="center")
+    console = Console(width=60, record=True, force_terminal=True, legacy_windows=False)
+    centered_banner = Align.center(banner(), vertical="middle")
+    console.print(centered_banner)
     svg = console.export_svg()
-    svg = svg.replace('<svg ', '<svg style="width:100%; max-width:500px; height:auto; display: block; margin: auto;" ')
+    
+    svg = svg.replace('<svg ', '<svg style="width:100%; max-width:450px; height:auto; display: block; margin: auto;" ')
+    svg = svg.replace(' viewBox="0 0', ' viewBox="50 0')
     return svg
 
 
 def generate_stats_svg(stats):
-    console = Console(width=80, record=True, force_terminal=True)
+    console = Console(width=50, record=True, force_terminal=True, legacy_windows=False)
     
     table = Table(title="[bold green]Saucegeo's Stats[/bold green]", show_header=True, header_style="bold magenta", expand=False)
-    table.add_column("Stat", style="cyan", no_wrap=True, justify="left")
-    table.add_column("Count", style="yellow", justify="right")
+    table.add_column("Stat", style="cyan", no_wrap=True, justify="left", width=15)
+    table.add_column("Count", style="yellow", justify="right", width=10)
     
     for k, v in stats.items():
         table.add_row(k, str(v))
     
-    console.print("\n")
-    console.print(table, justify="center")
+    centered_table = Align.center(table, vertical="middle")
+    console.print(centered_table)
     svg = console.export_svg()
-    svg = svg.replace('<svg ', '<svg style="width:100%; max-width:400px; height:auto; display: block; margin: auto;" ')
+    
+    svg = svg.replace('<svg ', '<svg style="width:100%; max-width:350px; height:auto; display: block; margin: auto;" ')
+    svg = svg.replace(' viewBox="0 0', ' viewBox="50 0')
     return svg
 
 

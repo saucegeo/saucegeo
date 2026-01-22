@@ -1,0 +1,4 @@
+PyInquirer
+rich
+requests
+svglib

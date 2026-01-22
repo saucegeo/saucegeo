@@ -52,14 +52,16 @@ def github_stats(user, repo, token=None):
 
 
 def generate_banner_svg():
-    console = Console(width=800, record=True)
+    console = Console(width=1200, record=True, force_terminal=True)
     console.print(banner())
     svg = console.export_svg()
+    svg = svg.replace('width="', 'width="').replace('height="', 'height="')
+    svg = svg.replace('<svg ', '<svg style="width:100%; max-width:800px; height:auto;" ')
     return svg
 
 
 def generate_stats_svg(stats):
-    console = Console(width=800, record=True)
+    console = Console(width=1200, record=True, force_terminal=True)
     
     table = Table(title="[bold green]Saucegeo's Stats[/bold green]", show_header=True, header_style="bold magenta")
     table.add_column("Stat", style="cyan", no_wrap=True)
@@ -70,6 +72,8 @@ def generate_stats_svg(stats):
     
     console.print(table)
     svg = console.export_svg()
+    svg = svg.replace('width="', 'width="').replace('height="', 'height="')
+    svg = svg.replace('<svg ', '<svg style="width:100%; max-width:800px; height:auto;" ')
     return svg
 
 

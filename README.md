@@ -1,14 +1,14 @@
 # Saucegeo
 
-<p align="center">
+<div align="center">
   <img src="./assets/banner.svg" alt="Saucegeo Banner" />
-</p>
+</div>
 
 ## My Stats
 
-<p align="center">
+<div align="center">
   <img src="./assets/stats.svg" alt="GitHub Stats" />
-</p>
+</div>
 
 ## Tech Stack
 

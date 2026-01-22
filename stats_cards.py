@@ -58,7 +58,7 @@ def generate_banner_svg():
     console.print(centered_banner)
     svg = console.export_svg()
     
-    svg = svg.replace('<svg ', '<svg style="width:100%; max-width:450px; height:auto; display: block; margin: auto;" ')
+    svg = svg.replace('<svg ', '<svg width="450" height="auto" ')
     svg = svg.replace(' viewBox="0 0', ' viewBox="50 0')
     return svg
 
@@ -77,7 +77,7 @@ def generate_stats_svg(stats):
     console.print(centered_table)
     svg = console.export_svg()
     
-    svg = svg.replace('<svg ', '<svg style="width:100%; max-width:350px; height:auto; display: block; margin: auto;" ')
+    svg = svg.replace('<svg ', '<svg width="350" height="auto" ')
     svg = svg.replace(' viewBox="0 0', ' viewBox="50 0')
     return svg
 

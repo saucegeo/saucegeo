@@ -92,7 +92,7 @@ def generate_terminal_svg(stats):
     console.print("║  [pale_turquoise1]*** Typescript                         [/pale_turquoise1]║")
     console.print("║  [pale_turquoise1]*** React + Vite                       [/pale_turquoise1]║")
     console.print("║                                         ║")
-    console.print("║  [indian_red1]Tools:[/indian_red1g]                                 ║")
+    console.print("║  [indian_red1]Tools:[/indian_red1]                                 ║")
     console.print("║  [pale_turquoise1]*** Linux/Bash                         [/pale_turquoise1]║")
     console.print("║  [pale_turquoise1]*** Git & GitHub                       [/pale_turquoise1]║")
     console.print("║                                         ║")
@@ -102,8 +102,28 @@ def generate_terminal_svg(stats):
     console.print(" exit\n")
     console.print("[light_pink1]thank you for passing by ( ˘▽˘)っ♨ [/light_pink1]\n")
 
+    import re
     svg = console.export_svg()
-    svg = svg.replace('<svg ', '<svg style="width:100%; max-width:600px; height: auto;" ')
+
+    # Remove width and height attributes from the <svg ...> tag
+    svg = re.sub(r'(<svg[^>]*)\swidth="[^"]*"', r'\1', svg)
+    svg = re.sub(r'(<svg[^>]*)\sheight="[^"]*"', r'\1', svg)
+
+    # Inject JetBrains Mono font CSS into the first <style> block after <svg ...><defs><style ...>
+    font_css = """
+    @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: normal;
+        font-weight: 400;
+        src: url('https://fonts.gstatic.com/s/jetbrainsmono/v16/1Ptug8zYS_SKggPNyC0ISg.woff2') format('woff2');
+    }
+    * { font-family: 'JetBrains Mono', monospace !important; }
+    """
+    svg = re.sub(r'(<style[^>]*>)', r'\1' + font_css, svg, count=1)
+
+    # Add responsive style to <svg> tag (width:100%, max-width:600px, etc.)
+    svg = re.sub(r'<svg([^>]*)', r'<svg\1 style="width:100%; max-width:600px; height:auto; display:block;"', svg, count=1)
+
     return svg
 
 

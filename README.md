@@ -1,21 +1,74 @@
 # Saucegeo
 
 <div align="center">
-  <img src="./assets/banner.svg" alt="Saucegeo Banner"
-  style="width: 100%; max-width: 450px; height: auto;" />
+  <img src="./assets/terminal.svg" alt="Terminal Interface"
+  style="width: 100%; max-width: 600px; height: auto;" />
 </div>
 
-## My Stats
+## About Me
 
-<div align="center">
-  <img src="./assets/stats.svg" alt="GitHub Stats"
-  style="width: 100%; max-width: 350px; height: auto;" />
-</div>
+```text
+┌─────────────────────────────────────────────┐
+│  Focused on:                                │
+│  • Building scalable web applications       │
+│  • Contributing to open source projects     │
+│  • Learning new technologies daily          │
+│  • Sharing knowledge with community     │
+│                                             │
+│  Currently learning:                        │
+│  • Advanced Python patterns                 │
+│  • System design & architecture             │
+│  • Cloud infrastructure                     │
+└─────────────────────────────────────────────┘
+```
 
-## Tech Stack
+## Socials
 
-<div align="center">
-  <img src="./assets/tech_stack.svg" alt="Tech Stack"
-  style="width: 100%; max-width: 550px; height: auto;" />
-</div>
+```text
+╔════════════════════════════════════════════╗
+║              SOCIAL LINKS                    ║
+╠════════════════════════════════════════════╣
+║                                              ║
+║  Email:    saucegeo@example.com              ║
+║  Website:  https://saucegeo.dev              ║
+║  LinkedIn: https://linkedin.com/in/saucegeo  ║
+║  Twitter:  https://twitter.com/saucegeo      ║
+║                                              ║
+╚══════════════════════════════════════════╝
+```
 
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/saucegeo)
+[![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/saucegeo)
+[![Website](https://img.shields.io/badge/Website-000000?style=for-the-badge&logo=about.me&logoColor=white)](https://saucegeo.dev)
+
+## GitHub Activity
+
+![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user=saucegeo&theme=dark&hide_border=true)
+![GitHub Contributions](https://github-readme-activity-graph.vercel.app/graph?username=saucegeo&theme=react-dark)
+
+## Goofiest Facts
+
+```text
+┌──────────────────────────────────────┐
+│  Did you know baka?                  │
+├──────────────────────────────────────┤
+│  • ...                               │
+│  • ..                                │
+│  • .                                 │
+│  •                                   │
+└──────────────────────────────────────┘
+```
+
+---
+
+<p align="center">
+  <sub>Built for love of terminal</sub>
+  <br>
+  <img src="https://komarev.com/ghpvc/?username=saucegeo&label=Profile+Views&color=00ff00&style=flat-square" alt="Profile Views" />
+</p>
+
+```text
+════════════════════════════════════════════════════════════
+  Currently building this README. Give me some time now...
+════════════════════════════════════════════════════════════
+```

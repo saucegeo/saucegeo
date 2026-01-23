@@ -46,11 +46,11 @@ def generate_terminal_svg(stats):
     console.print("\n")
 
     console.print("[bold yellow]saucegeo@github-profile ~ $ [/bold yellow]", end="")
-    console.print(" echo 'Hi, my name is'")
-    console.print("[bold cyan]Hi, my name is[/bold cyan]\n")
+    console.print(" echo [red]'Hello there, my name is'[/red]\n")
+    console.print("[bold cyan]Hello there, my name is[/bold cyan]\n")
 
     console.print("[bold yellow]saucegeo@github-profile ~ $ [/bold yellow]", end="")
-    console.print(" ascii-art saucegeo")
+    console.print(" ascii-name\n")
 
     console.print("[bold magenta]██╗   ██╗ █████╗  ██████╗██╗███╗   ██╗███████╗[/bold magenta]".center(70))
     console.print("[bold magenta]╚██╗ ██╔╝██╔══██╗██╔════╝██║████╗  ██║██╔════╝[/bold magenta]".center(70))
@@ -73,6 +73,34 @@ def generate_terminal_svg(stats):
     console.print(table)
     console.print("")
 
+    console.print("[bold yellow]saucegeo@github-profile ~ $ [/bold yellow]", end="")
+    console.print(" about-me\n")
+    console.print(Align.center("[bright_magenta]I'm a computer engineering student with a passion \n    for Robotics, Hardware, and Open Source.[/bright_magenta]\n", vertical="middle"))
+
+    console.print("[bold yellow]saucegeo@github-profile ~ $ [/bold yellow]", end="")
+    console.print(" learning-roadmap\n")
+    console.print("╔═════════════════════════════════════════╗")
+    console.print("║            Currently Learning           ║")
+    console.print("╠═════════════════════════════════════════╣")
+    console.print("║                                         ║")
+    console.print("║  [cyan]Embedded C & Robotics:[/cyan]                 ║")
+    console.print("║  [bright_magenta]*** ROS2                               [/bright_magenta]║")
+    console.print("║  [bright_magenta]*** Assembly Programming               [/bright_magenta]║")
+    console.print("║                                         ║")
+    console.print("║  [cyan]Web/UI:[/cyan]                                ║")
+    console.print("║  [bright_magenta]*** Typescript                         [/bright_magenta]║")
+    console.print("║  [bright_magenta]*** React + Vite                       [/bright_magenta]║")
+    console.print("║                                         ║")
+    console.print("║  [cyan]Tools:[/cyan]                                 ║")
+    console.print("║  [bright_magenta]*** Linux/Bash                         [/bright_magenta]║")
+    console.print("║  [bright_magenta]*** Git & GitHub                       [/bright_magenta]║")
+    console.print("║                                         ║")
+    console.print("╚═════════════════════════════════════════╝\n")
+
+    console.print("[bold yellow]saucegeo@github-profile ~ $ [/bold yellow]", end="")
+    console.print(" exit\n")
+    console.print("[bright_magenta]thank you for passing by ( ˘▽˘)っ♨ [/bright_magenta]\n")
+
     svg = console.export_svg()
     svg = svg.replace('<svg ', '<svg style="width:100%; max-width:600px; height: auto;" ')
     return svg
@@ -90,6 +118,3 @@ if __name__ == "__main__":
 
     with open("assets/terminal.svg", "w") as f:
         f.write(terminal_svg)
-
-    print("\n✅ Generated assets/terminal.svg")
-    print("✅ Using Sweetie 16-inspired colors!")

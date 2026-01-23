@@ -54,18 +54,20 @@ def github_stats(user, repo, token=None):
 
 def generate_banner_svg():
     console = Console(width=60, record=True, force_terminal=True, legacy_windows=False)
+    console.print("\n")
     centered_banner = Align.center(banner(), vertical="middle")
     console.print(centered_banner)
+    console.print("\n")
     svg = console.export_svg()
     
-    svg = svg.replace('<svg ', '<svg width="450" height="auto" ')
-    svg = svg.replace(' viewBox="0 0', ' viewBox="50 0')
+    svg = svg.replace('<svg ', '<svg style="width:100%; max-width:450px; height: auto;" ')
     return svg
 
 
 def generate_stats_svg(stats):
     console = Console(width=50, record=True, force_terminal=True, legacy_windows=False)
     
+    console.print("\n")
     table = Table(title="[bold green]Saucegeo's Stats[/bold green]", show_header=True, header_style="bold magenta", expand=False)
     table.add_column("Stat", style="cyan", no_wrap=True, justify="left", width=15)
     table.add_column("Count", style="yellow", justify="right", width=10)
@@ -75,32 +77,19 @@ def generate_stats_svg(stats):
     
     centered_table = Align.center(table, vertical="middle")
     console.print(centered_table)
+    console.print("\n")
     svg = console.export_svg()
     
-    svg = svg.replace('<svg ', '<svg width="350" height="auto" ')
-    svg = svg.replace(' viewBox="0 0', ' viewBox="50 0')
+    svg = svg.replace('<svg ', '<svg style="width:100%; max-width:350px; height: auto;" ')
     return svg
 
 
 if __name__ == "__main__":
-    print(banner())
-    
     user = "saucegeo"
     repo = "saucegeo"
     token = os.getenv("GHT")
     stats = github_stats(user, repo, token=token)
 
-    console = Console()
-    
-    table = Table(title="[bold green]Saucegeo's Stats[/bold green]", show_header=True, header_style="bold magenta")
-    table.add_column("Stat", style="cyan", no_wrap=True)
-    table.add_column("Count", style="yellow")
-    
-    for k, v in stats.items():
-        table.add_row(k, str(v))
-    
-    console.print(table)
-    
     banner_svg = generate_banner_svg()
     stats_svg = generate_stats_svg(stats)
     
@@ -112,5 +101,5 @@ if __name__ == "__main__":
     with open("assets/stats.svg", "w") as f:
         f.write(stats_svg)
     
-    print("\n Generated assets/banner.svg")
-    print("Generated assets/stats.svg")
+    print("\n✅ Generated assets/banner.svg")
+    print("✅ Generated assets/stats.svg")

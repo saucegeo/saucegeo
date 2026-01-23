@@ -52,12 +52,12 @@ def generate_terminal_svg(stats):
     console.print("[bold yellow]saucegeo@github-profile ~ $ [/bold yellow]", end="")
     console.print(" ascii-name\n")
 
-    console.print("[bold magenta]██╗   ██╗ █████╗  ██████╗██╗███╗   ██╗███████╗[/bold magenta]".center(70))
-    console.print("[bold magenta]╚██╗ ██╔╝██╔══██╗██╔════╝██║████╗  ██║██╔════╝[/bold magenta]".center(70))
-    console.print("[bold magenta] ╚████╔╝ ███████║██║     ██║██╔██╗ ██║█████╗  [/bold magenta]".center(70))
-    console.print("[bold magenta]  ╚██╔╝  ██╔══██║██║     ██║██║╚██╗██║██╔══╝  [/bold magenta]".center(70))
-    console.print("[bold magenta]   ██║   ██║  ██║╚██████╗██║██║ ╚████║███████╗[/bold magenta]".center(70))
-    console.print("[bold magenta]   ╚═╝   ╚═╝  ╚═╝ ╚═════╝╚═╝╚═╝  ╚═╝╚══════╝[/bold magenta]\n".center(70))
+    console.print("[bold magenta]       ██╗   ██╗ █████╗  ██████╗██╗███╗   ██╗███████╗[/bold magenta]".center(70))
+    console.print("[bold magenta]       ╚██╗ ██╔╝██╔══██╗██╔════╝██║████╗  ██║██╔════╝[/bold magenta]".center(70))
+    console.print("[bold magenta]        ╚████╔╝ ███████║██║     ██║██╔██╗ ██║█████╗  [/bold magenta]".center(70))
+    console.print("[bold magenta]         ╚██╔╝  ██╔══██║██║     ██║██║╚██╗██║██╔══╝  [/bold magenta]".center(70))
+    console.print("[bold magenta]          ██║   ██║  ██║╚██████╗██║██║ ╚████║███████╗[/bold magenta]".center(70))
+    console.print("[bold magenta]          ╚═╝   ╚═╝  ╚═╝ ╚═════╝╚═╝╚═╝  ╚═╝╚══════╝[/bold magenta]\n".center(70))
     console.print("[bold yellow]saucegeo@github-profile ~ $ [/bold yellow]", end="")
     console.print(" github-stats")
 

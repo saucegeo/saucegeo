@@ -8,15 +8,43 @@ import requests
 
 def banner():
     txt = Text()
+    txt.append("\n\nHi, my name is\n\n", style="bold cyan")
     txt.append("""
 ██╗   ██╗ █████╗  ██████╗██╗███╗   ██╗███████╗
 ╚██╗ ██╔╝██╔══██╗██╔════╝██║████╗  ██║██╔════╝
  ╚████╔╝ ███████║██║     ██║██╔██╗ ██║█████╗  
   ╚██╔╝  ██╔══██║██║     ██║██║╚██╗██║██╔══╝  
    ██║   ██║  ██║╚██████╗██║██║ ╚████║███████╗
-   ╚═╝   ╚═╝  ╚═╝ ╚═════╝╚═╝╚═╝  ╚═══╝╚══════╝  
+   ╚═╝   ╚═╝  ╚═╝ ╚═════╝╚═╝╚═╝  ╚═══╝╚══════╝
 """, style="bold bright_magenta")
     return txt
+
+
+def generate_tech_stack_svg():
+    console = Console(width=60, record=True, force_terminal=True, legacy_windows=False)
+    
+    console.print("\n")
+    console.print("[bold cyan]╔═════════════════════════════════════════════════════╗[/bold cyan]")
+    console.print("[bold cyan]║              TECHNOLOGIES & TOOLS                    ║[/bold cyan]")
+    console.print("[bold cyan]╠═════════════════════════════════════════════════════╣[/bold cyan]")
+    console.print("[bold cyan]║                                                       ║[/bold cyan]")
+    console.print("[bold cyan]║  [bold yellow]Languages:[/bold yellow]                                        ║[/bold cyan]")
+    console.print("[bold cyan]║  ████████████████░░░░░  [bold green]Python[/bold green]                       ║[/bold cyan]")
+    console.print("[bold cyan]║  ██████████████░░░░░░░░  [bold blue]JavaScript[/bold blue]                  ║[/bold cyan]")
+    console.print("[bold cyan]║  ████████░░░░░░░░░░░░░░  [bold magenta]TypeScript[/bold magenta]                ║[/bold cyan]")
+    console.print("[bold cyan]║  ██████████░░░░░░░░░░░░  [bold cyan]Go[/bold cyan]                           ║[/bold cyan]")
+    console.print("[bold cyan]║                                                       ║[/bold cyan]")
+    console.print("[bold cyan]║  [bold yellow]Frameworks & Tools:[/bold yellow]                             ║[/bold cyan]")
+    console.print("[bold cyan]║  🐍 Django    📊 NumPy    🎨 Tailwind                ║[/bold cyan]")
+    console.print("[bold cyan]║  ⚛️ React      🔥 Firebase  🐳 Docker                 ║[/bold cyan]")
+    console.print("[bold cyan]║  📱 Next.js    🔵 GraphQL  🌐 Vercel                  ║[/bold cyan]")
+    console.print("[bold cyan]║                                                       ║[/bold cyan]")
+    console.print("[bold cyan]╚═════════════════════════════════════════════════════╝[/bold cyan]")
+    console.print("\n")
+    
+    svg = console.export_svg()
+    svg = svg.replace('<svg ', '<svg style="width:100%; max-width:550px; height: auto;" ')
+    return svg
 
 
 def github_stats(user, repo, token=None):
@@ -92,14 +120,19 @@ if __name__ == "__main__":
 
     banner_svg = generate_banner_svg()
     stats_svg = generate_stats_svg(stats)
-    
+    tech_stack_svg = generate_tech_stack_svg()
+
     os.makedirs("assets", exist_ok=True)
-    
+
     with open("assets/banner.svg", "w") as f:
         f.write(banner_svg)
-    
+
     with open("assets/stats.svg", "w") as f:
         f.write(stats_svg)
-    
+
+    with open("assets/tech_stack.svg", "w") as f:
+        f.write(tech_stack_svg)
+
     print("\n✅ Generated assets/banner.svg")
     print("✅ Generated assets/stats.svg")
+    print("✅ Generated assets/tech_stack.svg")

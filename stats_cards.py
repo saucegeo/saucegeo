@@ -45,31 +45,26 @@ def generate_terminal_svg(stats):
 
     console.print("\n")
 
-    # Terminal header with user@hostname
-    console.print("[bold green]saucegeo@github-profile ~ $ [/bold green]", end="")
-
-    # Greeting command
+    console.print("[bold yellow]saucegeo@github-profile ~ $ [/bold yellow]", end="")
     console.print(" echo 'Hi, my name is'")
     console.print("[bold cyan]Hi, my name is[/bold cyan]\n")
 
-    # ASCII art command
-    console.print("[bold green]saucegeo@github-profile ~ $ [/bold green]", end="")
+    console.print("[bold yellow]saucegeo@github-profile ~ $ [/bold yellow]", end="")
     console.print(" ascii-art saucegeo")
 
-    console.print("[bold bright_magenta]██╗   ██╗ █████╗  ██████╗██╗███╗   ██╗███████╗[/bold bright_magenta]")
-    console.print("[bold bright_magenta]╚██╗ ██╔╝██╔══██╗██╔════╝██║████╗  ██║██╔════╝[/bold bright_magenta]")
-    console.print("[bold bright_magenta] ╚████╔╝ ███████║██║     ██║██╔██╗ ██║█████╗  [/bold bright_magenta]")
-    console.print("[bold bright_magenta]  ╚██╔╝  ██╔══██║██║     ██║██║╚██╗██║██╔══╝  [/bold bright_magenta]")
-    console.print("[bold bright_magenta]   ██║   ██║  ██║╚██████╗██║██║ ╚████║███████╗[/bold bright_magenta]")
-    console.print("[bold bright_magenta]   ╚═╝   ╚═╝  ╚═╝ ╚═════╝╚═╝╚═╝  ╚═══╝╚══════╝[/bold bright_magenta]\n")
+    console.print("[bold magenta]██╗   ██╗ █████╗  ██████╗██╗███╗   ██╗███████╗[/bold magenta]")
+    console.print("[bold magenta]╚██╗ ██╔╝██╔══██╗██╔════╝██║████╗  ██║██╔════╝[/bold magenta]")
+    console.print("[bold magenta] ╚████╔╝ ███████║██║     ██║██╔██╗ ██║█████╗  [/bold magenta]")
+    console.print("[bold magenta]  ╚██╔╝  ██╔══██║██║     ██║██║╚██╗██║██╔══╝  [/bold magenta]")
+    console.print("[bold magenta]   ██║   ██║  ██║╚██████╗██║██║ ╚████║███████╗[/bold magenta]")
+    console.print("[bold magenta]   ╚═╝   ╚═╝  ╚═╝ ╚═════╝╚═╝╚═╝  ╚═╝╚══════╝[/bold magenta]\n")
 
-    # Stats command
-    console.print("[bold green]saucegeo@github-profile ~ $ [/bold green]", end="")
+    console.print("[bold yellow]saucegeo@github-profile ~ $ [/bold yellow]", end="")
     console.print(" github-stats")
 
     table = Table(show_header=True, header_style="bold magenta", expand=False, box=None, padding=(0, 1))
     table.add_column("", style="cyan", no_wrap=True)
-    table.add_column("", style="yellow", justify="right")
+    table.add_column("", style="bright_magenta", justify="right")
 
     table.add_row("Stars", f"{stats['Stars']}")
     table.add_row("Total Commits", f"{stats['Total Commits']}")
@@ -77,28 +72,6 @@ def generate_terminal_svg(stats):
     table.add_row("Open PRs", f"{stats['Open PRs']}")
 
     console.print(table)
-    console.print("")
-
-    # Tech stack command
-    console.print("[bold green]saucegeo@github-profile ~ $ [/bold green]", end="")
-    console.print(" tech-stack --list\n")
-
-    console.print("[bold cyan]╔═══════════════════════════════════════════════════╗[/bold cyan]")
-    console.print("[bold cyan]║              TECHNOLOGIES & TOOLS                    ║[/bold cyan]")
-    console.print("[bold cyan]╠═══════════════════════════════════════════════════╣[/bold cyan]")
-    console.print("[bold cyan]║                                                       ║[/bold cyan]")
-    console.print("[bold cyan]║  [bold yellow]Languages:[/bold yellow]                                        ║[/bold cyan]")
-    console.print("[bold cyan]║  [bold green]Python       ████████████████░░░░░[/bold green]              [bold cyan]║[/bold cyan]")
-    console.print("[bold cyan]║  [bold blue]JavaScript   ██████████████░░░░░░░░[/bold blue]             [bold cyan]║[/bold cyan]")
-    console.print("[bold cyan]║  [bold magenta]TypeScript   ████████░░░░░░░░░░░░░░[/bold magenta]           [bold cyan]║[/bold cyan]")
-    console.print("[bold cyan]║  [bold cyan]Go           ██████████░░░░░░░░░░░  [/bold cyan]            [bold cyan]║[/bold cyan]")
-    console.print("[bold cyan]║                                                       ║[/bold cyan]")
-    console.print("[bold cyan]║  [bold yellow]Frameworks & Tools:[/bold yellow]                             ║[/bold cyan]")
-    console.print("[bold cyan]║  🐍 Django    📊 NumPy    🎨 Tailwind                ║[/bold cyan]")
-    console.print("[bold cyan]║  ⚛️ React      🔥 Firebase  🐳 Docker                 ║[/bold cyan]")
-    console.print("[bold cyan]║  📱 Next.js    🔵 GraphQL  🌐 Vercel                  ║[/bold cyan]")
-    console.print("[bold cyan]║                                                       ║[/bold cyan]")
-    console.print("[bold cyan]╚═══════════════════════════════════════════════════╝[/bold cyan]")
     console.print("")
 
     svg = console.export_svg()
@@ -120,4 +93,4 @@ if __name__ == "__main__":
         f.write(terminal_svg)
 
     print("\n✅ Generated assets/terminal.svg")
-    print("✅ Single terminal SVG with all commands!")
+    print("✅ Using Sweetie 16-inspired colors!")

@@ -1,43 +1,55 @@
 import os
-from rich import print
+import re
+import requests
 from rich.console import Console
 from rich.table import Table
-from rich.text import Text
 from rich.align import Align
-import requests
+from rich.panel import Panel
 
-# color taken from https://rich.readthedocs.io/en/stable/appendix/colors.html
+# Extract GitHub stats from profile
+def github_stats(user, token=None):
+    headers = {"Accept": "application/vnd.github.v3+json"}
+    if token:
+        # Token is used for authenticated requests
+        headers["Authorization"] = f"token {token}" 
 
-def github_stats(user, repo, token=None):
-    headers = {"Authorization": f"token {token}"} if token else {}
-
-    repo_data = requests.get(f"https://api.github.com/repos/{user}/{repo}", headers=headers).json()
-    stars = repo_data.get("stargazers_count", 0)
-    issues = repo_data.get("open_issues_count", 0)
-    pulls = requests.get(f"https://api.github.com/repos/{user}/{repo}/pulls?state=open", headers=headers).json()
-
-    commits_url = f"https://api.github.com/repos/{user}/{repo}/commits"
-    total_commits = 0
+    # Get the total number of stars across repositories
+    stars = 0
     page = 1
-    per_page = 100
-
     while True:
-        response = requests.get(f"{commits_url}?per_page={per_page}&page={page}", headers=headers)
+        # Fetch public repositories and limit to 100 repos per page
+        repos_url = f"https://api.github.com/users/{user}/repos?per_page=100&page={page}"
+        response = requests.get(repos_url, headers=headers)
         if response.status_code != 200:
             break
-        commits = response.json()
-        if not commits:
+        repos_data = response.json()  # FIXED: .json() au lieu de .jsons()
+        if not repos_data:
             break
-        total_commits += len(commits)
+        stars += sum(repo.get("stargazers_count", 0) for repo in repos_data)
+        if len(repos_data) < 100:
+            break
         page += 1
-        if len(commits) < per_page:
-            break
+
+    # Total commits and open issues/PRs
+    commit_search_url = f"https://api.github.com/search/commits?q=author:{user}"
+    commit_response = requests.get(commit_search_url, headers=headers).json()
+    total_commits = commit_response.get("total_count", 0)
+
+    # Open PRs globales
+    pr_search_url = f"https://api.github.com/search/issues?q=author:{user}+type:pr+state:open"
+    pr_response = requests.get(pr_search_url, headers=headers).json()
+    open_prs = pr_response.get("total_count", 0)
+
+    # Open issues globales 
+    issue_search_url = f"https://api.github.com/search/issues?q=author:{user}+type:issue+state:open"
+    issue_response = requests.get(issue_search_url, headers=headers).json()
+    open_issues = issue_response.get("total_count", 0)
 
     return {
         "Stars": stars,
         "Total Commits": total_commits,
-        "Open Issues": issues,
-        "Open PRs": len(pulls),
+        "Open Issues": open_issues,
+        "Open PRs": open_prs
     }
 
 
@@ -59,6 +71,7 @@ def generate_terminal_svg(stats):
     console.print("[indian_red1]        ╚██╔╝  ██╔══██║██║     ██║██║╚██╗██║██╔══╝  [/indian_red1]".center(70))
     console.print("[indian_red1]         ██║   ██║  ██║╚██████╗██║██║ ╚████║███████╗[/indian_red1]".center(70))
     console.print("[indian_red1]         ╚═╝   ╚═╝  ╚═╝ ╚═════╝╚═╝╚═╝  ╚═╝╚══════╝[/indian_red1]\n".center(70))
+    
     console.print("[khaki1]saucegeo@github-profile ~ $ [/khaki1]", end="")
     console.print(" github-stats")
 
@@ -78,31 +91,37 @@ def generate_terminal_svg(stats):
     console.print(" about-me\n")
     console.print(Align.center("[light_pink1]I'm a computer engineering student with a passion \n    for Robotics, Hardware, and Open Source.[/light_pink1]\n", vertical="middle"))
 
+    # Use a panel to display the learning roadmap
     console.print("[khaki1]saucegeo@github-profile ~ $ [/khaki1]", end="")
     console.print(" learning-roadmap\n")
-    console.print("╔═════════════════════════════════════════╗")
-    console.print("║            Currently Learning           ║")
-    console.print("╠═════════════════════════════════════════╣")
-    console.print("║                                         ║")
-    console.print("║  [indian_red1]Embedded C & Robotics:[/indian_red1]                 ║")
-    console.print("║  [pale_turquoise1]*** ROS2                               [/pale_turquoise1]║")
-    console.print("║  [pale_turquoise1]*** Assembly Programming               [/pale_turquoise1]║")
-    console.print("║                                         ║")
-    console.print("║  [indian_red1]Web/UI:[/indian_red1]                                ║")
-    console.print("║  [pale_turquoise1]*** Typescript                         [/pale_turquoise1]║")
-    console.print("║  [pale_turquoise1]*** React + Vite                       [/pale_turquoise1]║")
-    console.print("║                                         ║")
-    console.print("║  [indian_red1]Tools:[/indian_red1]                                 ║")
-    console.print("║  [pale_turquoise1]*** Linux/Bash                         [/pale_turquoise1]║")
-    console.print("║  [pale_turquoise1]*** Git & GitHub                       [/pale_turquoise1]║")
-    console.print("║                                         ║")
-    console.print("╚═════════════════════════════════════════╝\n")
+    
+    roadmap_text = (
+        "[indian_red1]Embedded C & Robotics:[/indian_red1]\n"
+        "[pale_turquoise1] ➔ ROS2 (Robot Operating System)[/pale_turquoise1]\n"
+        "[pale_turquoise1] ➔ Assembly Programming (x86/ARM)[/pale_turquoise1]\n\n"
+        "[indian_red1]Hardware & Simulation:[/indian_red1]\n"
+        "[pale_turquoise1] ➔ VHDL & Digital System Design[/pale_turquoise1]\n"
+        "[pale_turquoise1] ➔ LTSpice Circuit Analysis[/pale_turquoise1]\n\n"
+        "[indian_red1]Systems & Tools:[/indian_red1]\n"
+        "[pale_turquoise1] ➔ Linux Environments & Shell Scripting[/pale_turquoise1]\n"
+        "[pale_turquoise1] ➔ PlatformIO Framework & Git[/pale_turquoise1]"
+    )
+
+    panel = Panel(
+        roadmap_text, 
+        title="[light_pink1]Currently Learning[/light_pink1]", 
+        style="white", 
+        border_style="indian_red1",
+        width=52,
+        expand=False
+    )
+    console.print(panel)
+    console.print("")
 
     console.print("[khaki1]saucegeo@github-profile ~ $ [/khaki1]", end="")
     console.print(" exit\n")
     console.print("[light_pink1]thank you for passing by ( ˘▽˘)っ♨ [/light_pink1]\n")
 
-    import re
     svg = console.export_svg()
 
     # Remove width and height attributes from the <svg ...> tag
@@ -129,13 +148,12 @@ def generate_terminal_svg(stats):
 
 if __name__ == "__main__":
     user = "saucegeo"
-    repo = "saucegeo"
     token = os.getenv("GHT")
-    stats = github_stats(user, repo, token=token)
+    
+    stats = github_stats(user, token=token)
 
     terminal_svg = generate_terminal_svg(stats)
 
     os.makedirs("assets", exist_ok=True)
-
     with open("assets/terminal.svg", "w") as f:
         f.write(terminal_svg)

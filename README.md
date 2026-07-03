@@ -1,5 +1,3 @@
-# Saucegeo
-
 <div align="center">
   <picture>
     <source media="(prefers-color-scheme: light)" srcset="./assets/terminal-light.svg">

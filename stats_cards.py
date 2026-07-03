@@ -6,6 +6,9 @@ from rich.table import Table
 from rich.align import Align
 from rich.panel import Panel
 
+# Color taken from https://rich.readthedocs.io/en/stable/appendix/colors.html
+# ASCII text generated using https://patorjk.com/software/taag/#p=display&f=Big&t=saucegeo
+
 # Extract GitHub stats from profile
 def github_stats(user, token=None):
     headers = {"Accept": "application/vnd.github.v3+json"}
@@ -20,11 +23,15 @@ def github_stats(user, token=None):
         # Fetch public repositories and limit to 100 repos per page
         repos_url = f"https://api.github.com/users/{user}/repos?per_page=100&page={page}"
         response = requests.get(repos_url, headers=headers)
+        
+        # Check if the API request was successful (status code 200)
         if response.status_code != 200:
             break
-        repos_data = response.json()  # FIXED: .json() au lieu de .jsons()
+        repos_data = response.json() # Parse the JSON response
+        
         if not repos_data:
             break
+       
         stars += sum(repo.get("stargazers_count", 0) for repo in repos_data)
         if len(repos_data) < 100:
             break
@@ -52,83 +59,70 @@ def github_stats(user, token=None):
         "Open PRs": open_prs
     }
 
+# Create a terminal-like UI using Rich library and generate SVG output
+def generate_terminal_svg(stats, light_theme=False):
 
-def generate_terminal_svg(stats):
+# Define colors based on the system theme (light or dark)
+    if light_theme == True:
+        # Light theme colors
+        c_prompt = "grey23" # For command prompt
+        c_red = "cornflower_blue" # For headers and important text
+        c_text = "black" # For regular text
+        c_title = "grey23" # For titles
+        c_border = c_red # For panel border
+
+    else:
+        c_prompt = "grey66" # For command prompt
+        c_red = "light_cyan1" # For headers and important text
+        c_text = "grey84" # For regular text
+        c_title = "dark_sea_green4" # For titles
+        c_border = c_red # For panel border
+
+    # Create a console object to record the output and generate SVG
+    # SVG use vectors instead of pixels, so can scale image without losing quality
     console = Console(width=70, record=True, force_terminal=True, legacy_windows=False)
-
     console.print("\n")
 
-    console.print("[khaki1]saucegeo@github-profile ~ $ [/khaki1]", end="")
-    console.print(" echo [indian_red1]'Hello there, my name is'[/indian_red1]\n")
-    console.print("[pale_turquoise1]Hello there, my name is[/pale_turquoise1]\n")
+    # Display command (mimicking a terminal)
+    console.print(f"[{c_prompt}]saucegeo@github-profile ~ $ [/{c_prompt}]", end="")
+    console.print(f"[{c_text}]fetch-profile --user saucegeo[/{c_text}]\n")
 
-    console.print("[khaki1]saucegeo@github-profile ~ $ [/khaki1]", end="")
-    console.print(" ascii-name\n")
-
-    console.print("[indian_red1]      ██╗   ██╗ █████╗  ██████╗██╗███╗   ██╗███████╗[/indian_red1]".center(70))
-    console.print("[indian_red1]      ╚██╗ ██╔╝██╔══██╗██╔════╝██║████╗  ██║██╔════╝[/indian_red1]".center(70))
-    console.print("[indian_red1]       ╚████╔╝ ███████║██║     ██║██╔██╗ ██║█████╗  [/indian_red1]".center(70))
-    console.print("[indian_red1]        ╚██╔╝  ██╔══██║██║     ██║██║╚██╗██║██╔══╝  [/indian_red1]".center(70))
-    console.print("[indian_red1]         ██║   ██║  ██║╚██████╗██║██║ ╚████║███████╗[/indian_red1]".center(70))
-    console.print("[indian_red1]         ╚═╝   ╚═╝  ╚═╝ ╚═════╝╚═╝╚═╝  ╚═╝╚══════╝[/indian_red1]\n".center(70))
-    
-    console.print("[khaki1]saucegeo@github-profile ~ $ [/khaki1]", end="")
-    console.print(" github-stats")
-
-    table = Table(show_header=True, header_style="indian_red1", expand=False, box=None, padding=(0, 1))
-    table.add_column("", style="pale_turquoise1", no_wrap=True)
-    table.add_column("", style="indian_red1", justify="right")
-
-    table.add_row("Stars", f"{stats['Stars']}")
-    table.add_row("Total Commits", f"{stats['Total Commits']}")
-    table.add_row("Open Issues", f"{stats['Open Issues']}")
-    table.add_row("Open PRs", f"{stats['Open PRs']}")
-
-    console.print(table)
+    # Display ASCII name for GitHub profile
+    # Use rich Align to center function to center the ASCII art in the terminal
+    console.print(Align.center(f"[{c_red}]  ▗▖  ▗▖▗▄▖  ▗▄▄▖▗▄▄▄▖▗▖  ▗▖▗▄▄▄▖[/{c_red}]"))
+    console.print(Align.center(f"[{c_red}]   ▝▚▞▘▐▌ ▐▌▐▌     █  ▐▛▚▖▐▌▐▌   [/{c_red}]"))
+    console.print(Align.center(f"[{c_red}]    ▐▌ ▐▛▀▜▌▐▌     █  ▐▌ ▝▜▌▐▛▀▀▘[/{c_red}]"))
+    console.print(Align.center(f"[{c_red}]    ▐▌ ▐▌ ▐▌▝▚▄▄▖▗▄█▄▖▐▌  ▐▌▐▙▄▄▖[/{c_red}]"))
+    console.print(Align.center(f"[{c_text}]\nComputer Engineering Student @ Concordia[/{c_text}]"))
     console.print("")
-
-    console.print("[khaki1]saucegeo@github-profile ~ $ [/khaki1]", end="")
-    console.print(" about-me\n")
-    console.print(Align.center("[light_pink1]I'm a computer engineering student with a passion \n    for Robotics, Hardware, and Open Source.[/light_pink1]\n", vertical="middle"))
-
-    # Use a panel to display the learning roadmap
-    console.print("[khaki1]saucegeo@github-profile ~ $ [/khaki1]", end="")
-    console.print(" learning-roadmap\n")
     
-    roadmap_text = (
-        "[indian_red1]Embedded C & Robotics:[/indian_red1]\n"
-        "[pale_turquoise1] ➔ ROS2 (Robot Operating System)[/pale_turquoise1]\n"
-        "[pale_turquoise1] ➔ Assembly Programming (x86/ARM)[/pale_turquoise1]\n\n"
-        "[indian_red1]Hardware & Simulation:[/indian_red1]\n"
-        "[pale_turquoise1] ➔ VHDL & Digital System Design[/pale_turquoise1]\n"
-        "[pale_turquoise1] ➔ LTSpice Circuit Analysis[/pale_turquoise1]\n\n"
-        "[indian_red1]Systems & Tools:[/indian_red1]\n"
-        "[pale_turquoise1] ➔ Linux Environments & Shell Scripting[/pale_turquoise1]\n"
-        "[pale_turquoise1] ➔ PlatformIO Framework & Git[/pale_turquoise1]"
-    )
-
-    panel = Panel(
-        roadmap_text, 
-        title="[light_pink1]Currently Learning[/light_pink1]", 
-        style="white", 
-        border_style="indian_red1",
-        width=52,
-        expand=False
-    )
-    console.print(panel)
+    # Display GitHub stats
+    console.print(f"  [{c_red}]●[/{c_red}] [{c_text}]GitHub Stats: {stats['Total Commits']} Commits | {stats['Stars']} Stars | {stats['Open PRs']} PRs[/{c_text}]")
     console.print("")
+    console.print(f"  [{c_red}]●[/{c_red}] [{c_text}]Hardware: VHDL, ESP32, C/C++, Circuit Analysis[/{c_text}]")
+    console.print(f"  [{c_red}]●[/{c_red}] [{c_text}]Systems : ROS2, Linux, PlatformIO, Assembly[/{c_text}]")
+    console.print("\n")
 
-    console.print("[khaki1]saucegeo@github-profile ~ $ [/khaki1]", end="")
-    console.print(" exit\n")
-    console.print("[light_pink1]thank you for passing by ( ˘▽˘)っ♨ [/light_pink1]\n")
+    # Footer with border to mimic a terminal window
+    console.print(f"[{c_red}]└{' ' * 68}┘[/{c_red}]")   
 
     svg = console.export_svg()
+
+    # Replace the default background color
+# Replace the default background color
+    if light_theme == True:
+        svg = svg.replace('fill="#292929"', 'fill="#f6f8fa"') 
+        svg = svg.replace('fill="#c9c9c9"', 'fill="#24292e"')
+        svg = svg.replace('fill="#cccccc"', 'fill="#24292e"')
+        svg = svg.replace('stroke="rgba(255,255,255,0.35)"', 'stroke="rgba(0,0,0,0.1)"')
+    else:
+        svg = svg.replace('fill="#292929"', 'fill="#0d1117"')
 
     # Remove width and height attributes from the <svg ...> tag
     svg = re.sub(r'(<svg[^>]*)\swidth="[^"]*"', r'\1', svg)
     svg = re.sub(r'(<svg[^>]*)\sheight="[^"]*"', r'\1', svg)
 
-    # Inject JetBrains Mono font CSS into the first <style> block after <svg ...><defs><style ...>
+    # Use JetBrains Mono font for the SVG output -> terminal like display
     font_css = """
     @font-face {
         font-family: 'JetBrains Mono';
@@ -140,20 +134,25 @@ def generate_terminal_svg(stats):
     """
     svg = re.sub(r'(<style[^>]*>)', r'\1' + font_css, svg, count=1)
 
-    # Add responsive style to <svg> tag (width:100%, max-width:600px, etc.)
+    # SVG will scale to fit the container, maintaing the aspect ratio (max width: 600px)
     svg = re.sub(r'<svg([^>]*)', r'<svg\1 style="width:100%; max-width:600px; height:auto; display:block;"', svg, count=1)
 
     return svg
 
-
+# Main method to run the script and generate the terminal UI SVG
 if __name__ == "__main__":
-    user = "saucegeo"
-    token = os.getenv("GHT")
+    user = "saucegeo" # GitHub username
+    token = os.getenv("GHT") # GitHub token for authenticated requests -> used to avoid rate limit using GitHub API
     
-    stats = github_stats(user, token=token)
+    stats = github_stats(user, token=token) # Get GitHub stats
+    os.makedirs("assets", exist_ok=True) # Create the assets directory if it doesn't exist
 
-    terminal_svg = generate_terminal_svg(stats)
+    # Generate and save dark mode SVG
+    terminal_svg_dark = generate_terminal_svg(stats) # Generate the terminal UI SVG with stats
+    with open("assets/terminal-dark.svg", "w") as f:
+        f.write(terminal_svg_dark)
 
-    os.makedirs("assets", exist_ok=True)
-    with open("assets/terminal.svg", "w") as f:
-        f.write(terminal_svg)
+    # Generate and save light mode SVG
+    terminal_svg_light = generate_terminal_svg(stats, light_theme=True)
+    with open("assets/terminal-light.svg", "w") as f:
+        f.write(terminal_svg_light)

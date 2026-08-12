@@ -66,14 +66,14 @@ def generate_terminal_svg(stats, light_theme=False):
     if light_theme == True:
         # Light theme colors
         c_prompt = "grey23" # For command prompt
-        c_red = "cornflower_blue" # For headers and important text
+        c_red = "#40c463" # For headers and important text (GitHub green)
         c_text = "black" # For regular text
         c_title = "grey23" # For titles
         c_border = c_red # For panel border
 
     else:
         c_prompt = "grey66" # For command prompt
-        c_red = "light_cyan1" # For headers and important text
+        c_red = "#39d353" # For headers and important tex (GitHub green)
         c_text = "grey84" # For regular text
         c_title = "dark_sea_green4" # For titles
         c_border = c_red # For panel border
@@ -96,22 +96,23 @@ def generate_terminal_svg(stats, light_theme=False):
     console.print(Align.center(f"[{c_text}]\nComputer Engineering Student @ Concordia[/{c_text}]"))
     console.print("")
     
-    # Display GitHub stats
-    console.print(f"  [{c_red}]●[/{c_red}] [{c_text}]GitHub Stats: {stats['Total Commits']} Commits | {stats['Stars']} Stars | {stats['Open PRs']} PRs[/{c_text}]")
-    console.print("")
-    console.print(f"  [{c_red}]●[/{c_red}] [{c_text}]Hardware: VHDL, ESP32, C/C++, Circuit Analysis[/{c_text}]")
-    console.print(f"  [{c_red}]●[/{c_red}] [{c_text}]Systems : ROS2, Linux, PlatformIO, Assembly[/{c_text}]")
+    # Display GitHub stats and description
+    console.print(f"  [{c_red}]➤[/{c_red}] [{c_text}]Stats: {stats['Total Commits']} Commits | {stats['Stars']} Stars | {stats['Open PRs']} PRs[/{c_text}]")
+    console.print(f"  [{c_red}]➤[/{c_red}] [{c_text}]Languages : C, C++, Java, ARM Assembly [/{c_text}]")
+    console.print(f"  [{c_red}]➤[/{c_red}] [{c_text}]Graphics : OpenGL [/{c_text}]")
+    console.print(f"  [{c_red}]➤[/{c_red}] [{c_text}]Hardware : ESP32, Arduino, Rasperry Pi [/{c_text}]")
+    console.print(f"  [{c_red}]➤[/{c_red}] [{c_text}]Learning : Python & Lua [/{c_text}]")
     console.print("\n")
+
 
     # Footer with border to mimic a terminal window
     console.print(f"[{c_red}]└{' ' * 68}┘[/{c_red}]")   
 
     svg = console.export_svg()
 
-    # Replace the default background color
 # Replace the default background color
     if light_theme == True:
-        svg = svg.replace('fill="#292929"', 'fill="#f6f8fa"') 
+        svg = svg.replace('fill="#292929"', 'fill="#ffffff"') 
         svg = svg.replace('fill="#c9c9c9"', 'fill="#24292e"')
         svg = svg.replace('fill="#cccccc"', 'fill="#24292e"')
         svg = svg.replace('stroke="rgba(255,255,255,0.35)"', 'stroke="rgba(0,0,0,0.1)"')

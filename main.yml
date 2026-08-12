@@ -5,6 +5,10 @@ on:
     - cron: "*/5 * * * *" # Every 5 minutes
   workflow_dispatch:
 
+  # Add permission to access secrets
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest

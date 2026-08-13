@@ -1,0 +1,42 @@
+name: Update Github Stats
+
+on:
+  schedule:
+    - cron: "*/5 * * * *" # Every 5 minutes
+  workflow_dispatch:
+
+  # Add permission to access secrets
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GHT }} # Move token to checkout step
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      
+      - name: Run stats script
+        run: python stats_cards.py
+        env:
+          GHT: ${{ secrets.GHT }}
+      
+      - name: Commit changes (if any)
+        run: |
+          git config --global user.name "Github Actions"
+          git config --global user.email "action@github.com"
+          git add .
+          git commit -m "Updated GitHub stats 🎉" || echo "No changes"
+          git push

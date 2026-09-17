@@ -66,17 +66,17 @@ def generate_terminal_svg(stats, light_theme=False):
     if light_theme == True:
         # Light theme colors
         c_prompt = "grey23" # For command prompt
-        c_red = "#40c463" # For headers and important text (GitHub green)
+        c_green = "#40c463" # For headers and important text (GitHub green)
         c_text = "black" # For regular text
         c_title = "grey23" # For titles
-        c_border = c_red # For panel border
+        c_border = c_green # For panel border
 
     else:
         c_prompt = "grey66" # For command prompt
-        c_red = "#39d353" # For headers and important tex (GitHub green)
+        c_green = "#39d353" # For headers and important tex (GitHub green)
         c_text = "grey84" # For regular text
         c_title = "dark_sea_green4" # For titles
-        c_border = c_red # For panel border
+        c_border = c_green # For panel border
 
     # Create a console object to record the output and generate SVG
     # SVG use vectors instead of pixels, so can scale image without losing quality
@@ -89,24 +89,24 @@ def generate_terminal_svg(stats, light_theme=False):
 
     # Display ASCII name for GitHub profile
     # Use rich Align to center function to center the ASCII art in the terminal
-    console.print(Align.center(f"[{c_red}]  ▗▖  ▗▖▗▄▖  ▗▄▄▖▗▄▄▄▖▗▖  ▗▖▗▄▄▄▖[/{c_red}]"))
-    console.print(Align.center(f"[{c_red}]   ▝▚▞▘▐▌ ▐▌▐▌     █  ▐▛▚▖▐▌▐▌   [/{c_red}]"))
-    console.print(Align.center(f"[{c_red}]    ▐▌ ▐▛▀▜▌▐▌     █  ▐▌ ▝▜▌▐▛▀▀▘[/{c_red}]"))
-    console.print(Align.center(f"[{c_red}]    ▐▌ ▐▌ ▐▌▝▚▄▄▖▗▄█▄▖▐▌  ▐▌▐▙▄▄▖[/{c_red}]"))
+    console.print(Align.center(f"[{c_green}]  ▗▖  ▗▖▗▄▖  ▗▄▄▖▗▄▄▄▖▗▖  ▗▖▗▄▄▄▖[/{c_green}]"))
+    console.print(Align.center(f"[{c_green}]   ▝▚▞▘▐▌ ▐▌▐▌     █  ▐▛▚▖▐▌▐▌   [/{c_green}]"))
+    console.print(Align.center(f"[{c_green}]    ▐▌ ▐▛▀▜▌▐▌     █  ▐▌ ▝▜▌▐▛▀▀▘[/{c_green}]"))
+    console.print(Align.center(f"[{c_green}]    ▐▌ ▐▌ ▐▌▝▚▄▄▖▗▄█▄▖▐▌  ▐▌▐▙▄▄▖[/{c_green}]"))
     console.print(Align.center(f"[{c_text}]\nComputer Engineering Student @ Concordia[/{c_text}]"))
     console.print("")
     
     # Display GitHub stats and description
-    console.print(f"  [{c_red}]➤[/{c_red}] [{c_text}]Stats: {stats['Total Commits']} Commits | {stats['Stars']} Stars | {stats['Open PRs']} PRs[/{c_text}]")
-    console.print(f"  [{c_red}]➤[/{c_red}] [{c_text}]Languages : C, C++, Java, ARM Assembly [/{c_text}]")
-    console.print(f"  [{c_red}]➤[/{c_red}] [{c_text}]Graphics : OpenGL [/{c_text}]")
-    console.print(f"  [{c_red}]➤[/{c_red}] [{c_text}]Hardware : ESP32, Arduino, Rasperry Pi [/{c_text}]")
-    console.print(f"  [{c_red}]➤[/{c_red}] [{c_text}]Learning : Python & Lua [/{c_text}]")
+    console.print(f"  [{c_green}]➤[/{c_green}] [{c_text}]Stats: {stats['Total Commits']} Commits | {stats['Stars']} Stars | {stats['Open PRs']} PRs[/{c_text}]")
+    console.print(f"  [{c_green}]➤[/{c_green}] [{c_text}]Languages : C, C++, Java, ARM Assembly [/{c_text}]")
+    console.print(f"  [{c_green}]➤[/{c_green}] [{c_text}]Graphics : OpenGL [/{c_text}]")
+    console.print(f"  [{c_green}]➤[/{c_green}] [{c_text}]Hardware : ESP32, Arduino, Rasperry Pi [/{c_text}]")
+    console.print(f"  [{c_green}]➤[/{c_green}] [{c_text}]Learning : Python & Lua [/{c_text}]")
     console.print("\n")
 
 
     # Footer with border to mimic a terminal window
-    console.print(f"[{c_red}]└{' ' * 68}┘[/{c_red}]")   
+    console.print(f"[{c_green}]└{' ' * 68}┘[/{c_green}]")
 
     svg = console.export_svg()
 
